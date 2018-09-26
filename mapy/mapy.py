@@ -1,4 +1,5 @@
-from config import get_available_countries
+import config
+import random
 
 
 class Mapy:
@@ -13,7 +14,7 @@ class Mapy:
         parser.add_argument('--country', '-c', action='store',
                             help='You may enter a country '
                                  'name to test yourself!',
-                            type=get_available_countries)
+                            type=config.get_available_countries)
         args = parser.parse_args()
         return args
 
@@ -21,9 +22,13 @@ class Mapy:
         """
         Starts the game
         """
-        # print(args)
-        # print(LIST_OF_AVAILABLE_COUNTRIES)
-        pass
+        self.set_vars(args=args)
+        while True:
+            self.play_game(args=args)
+            play_or_not = input('\nDo you want to play another game? (y\\n)\n')
+            if play_or_not != 'y':
+                break
+            self.randomize_country()
 
     def set_vars(self, args):
         """
@@ -31,3 +36,11 @@ class Mapy:
         """
         if args.country:
             self.country = args.country
+        else:
+            self.randomize_country()
+
+    def randomize_country(self):
+        self.country = random.choice(config.LIST_OF_AVAILABLE_COUNTRIES)
+
+    def play_game(self, args):
+        pass
