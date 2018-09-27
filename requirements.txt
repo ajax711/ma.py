@@ -1,0 +1,2 @@
+pycountry==18.5.26
+pyfiglet==0.7.5
