@@ -52,17 +52,25 @@ class Mapy:
         self.country = random.choice(config.LIST_OF_AVAILABLE_COUNTRIES)
 
     def play_game(self):
-        neighbor_countries = self.get_neighboring_countries()
+        neighbor_countries_list = self.get_neighboring_countries()
+        neighbor_countries_relationships = {
+            country:self.determine_relationship(country)
+            for country in neighbor_countries_list}
 
     def get_neighboring_countries(self):
-        browser = RoboBrowser()
-        browser.open('https://www.geonames.org/countries/')
-        country_details_page = config.GEONAMES_HOMEPAGE + \
-                                   browser.select('.restable ')[0].\
-                                   find('a', href=re.compile(self.country))['href']
-        browser.open(country_details_page)
-        # print(config.LIST_OF_AVAILABLE_COUNTRIES)
-        neighbor_countries = [country_tag.string for country_tag in browser.find_all('a')
-                              if str(country_tag.string).lower() in config.LIST_OF_AVAILABLE_COUNTRIES
-                              and str(country_tag.string).lower() != self.country]
-        # print(neighbor_countries)
+            browser = RoboBrowser()
+            browser.open('https://www.geonames.org/countries/')
+            country_details_page = config.GEONAMES_HOMEPAGE + \
+                                       browser.select('.restable ')[0].\
+                                       find('a', href=re.compile(self.country))['href']
+            browser.open(country_details_page)
+            # print(config.LIST_OF_AVAILABLE_COUNTRIES)
+            neighbor_countries = [
+                country_tag.string for country_tag in browser.find_all('a')
+                if str(country_tag.string).lower() in config.LIST_OF_AVAILABLE_COUNTRIES
+                and str(country_tag.string).lower() != self.country]
+            # print(neighbor_countries)
+            return neighbor_countries
+
+    def determine_relationship(self, other):
+        pass
