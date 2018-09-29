@@ -22,7 +22,7 @@ class Mapy:
         parser.add_argument('--country', '-c', action='store',
                             help='You may enter a country '
                                  'name to test yourself!',
-                            type=config.get_available_countries)
+                            type=config.check_valid_country)
         args = parser.parse_args()
         return args
 
@@ -49,6 +49,7 @@ class Mapy:
         self.country = self.country.lower()
 
     def randomize_country(self):
+        print(config.LIST_OF_AVAILABLE_COUNTRIES)
         self.country = random.choice(config.LIST_OF_AVAILABLE_COUNTRIES)
 
     def play_game(self):
@@ -58,18 +59,19 @@ class Mapy:
             for country in neighbor_countries_list}
 
     def get_neighboring_countries(self):
+            # Initialize a browser object and open Geonames countries page
             browser = RoboBrowser()
-            browser.open('https://www.geonames.org/countries/')
+            browser.open(config.GEONAMES_COUNTRIES)
+
+            # Look for the link to the desired country page
             country_details_page = config.GEONAMES_HOMEPAGE + \
                                        browser.select('.restable ')[0].\
                                        find('a', href=re.compile(self.country))['href']
             browser.open(country_details_page)
-            # print(config.LIST_OF_AVAILABLE_COUNTRIES)
             neighbor_countries = [
                 country_tag.string for country_tag in browser.find_all('a')
                 if str(country_tag.string).lower() in config.LIST_OF_AVAILABLE_COUNTRIES
                 and str(country_tag.string).lower() != self.country]
-            # print(neighbor_countries)
             return neighbor_countries
 
     def determine_relationship(self, other):
