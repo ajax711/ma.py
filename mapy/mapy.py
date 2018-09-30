@@ -10,6 +10,13 @@ from robobrowser import RoboBrowser
 import re
 
 
+class Country:
+    def __init__(self, name):
+        self.name = name
+        self.capital = None
+        self.neighbors = list()
+
+
 class Mapy:
     def __init__(self, parser):
         self.country = None
@@ -32,7 +39,7 @@ class Mapy:
         """
         self.set_vars(args=args)
         while True:
-            self.play_game()
+            self.init_country_details()
             play_or_not = input('\nDo you want to play another game? (y\\n)\n')
             if play_or_not != 'y':
                 break
@@ -43,20 +50,18 @@ class Mapy:
         Sets command line variables passed into instance variables
         """
         if args.country:
-            self.country = args.country
+            self.country = Country(name=args.country)
         else:
             self.randomize_country()
-        self.country = self.country.lower()
+        self.country.name = self.country.name.lower()
 
     def randomize_country(self):
-        print(config.LIST_OF_AVAILABLE_COUNTRIES)
-        self.country = random.choice(config.LIST_OF_AVAILABLE_COUNTRIES)
+        # print(config.LIST_OF_AVAILABLE_COUNTRIES)
+        self.country = Country(name=random.choice(
+            config.LIST_OF_AVAILABLE_COUNTRIES))
 
-    def play_game(self):
-        neighbor_countries_list = self.get_neighboring_countries()
-        neighbor_countries_relationships = {
-            country:self.determine_relationship(country)
-            for country in neighbor_countries_list}
+    def init_country_details(self):
+        self.get_neighboring_countries()
 
     def get_neighboring_countries(self):
             # Initialize a browser object and open Geonames countries page
@@ -64,15 +69,21 @@ class Mapy:
             browser.open(config.GEONAMES_COUNTRIES)
 
             # Look for the link to the desired country page
+            print(self.country.name) # todo delete
             country_details_page = config.GEONAMES_HOMEPAGE + \
-                                       browser.select('.restable ')[0].\
-                                       find('a', href=re.compile(self.country))['href']
+                                       browser.select('.restable')[0].\
+                                       find('a', href=re.compile(self.country.name))['href']
             browser.open(country_details_page)
-            neighbor_countries = [
+            self.country.neighbors.extend([
                 country_tag.string for country_tag in browser.find_all('a')
                 if str(country_tag.string).lower() in config.LIST_OF_AVAILABLE_COUNTRIES
-                and str(country_tag.string).lower() != self.country]
-            return neighbor_countries
+                and str(country_tag.string).lower() != self.country.name])
+
+            # neighbor_countries = [
+            #     country_tag.string for country_tag in browser.find_all('a')
+            #     if str(country_tag.string).lower() in config.LIST_OF_AVAILABLE_COUNTRIES
+            #     and str(country_tag.string).lower() != self.country]
+            # return neighbor_countries
 
     def determine_relationship(self, other):
         pass
