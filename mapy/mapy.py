@@ -69,10 +69,10 @@ class Mapy:
             browser.open(config.GEONAMES_COUNTRIES)
 
             # Look for the link to the desired country page
-            print(self.country.name) # todo delete
+            formatted_country_name = self.country.name.replace(' ', '-')
             country_details_page = config.GEONAMES_HOMEPAGE + \
                                        browser.select('.restable')[0].\
-                                       find('a', href=re.compile(self.country.name))['href']
+                                       find('a', href=re.compile(formatted_country_name))['href']
             browser.open(country_details_page)
             self.country.neighbors.extend([
                 country_tag.string for country_tag in browser.find_all('a')
