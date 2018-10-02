@@ -65,7 +65,7 @@ class Mapy:
 
     def get_neighboring_countries(self):
             # Initialize a browser object and open Geonames countries page
-            browser = RoboBrowser()
+            browser = RoboBrowser(parser='html.parser')
             browser.open(config.GEONAMES_COUNTRIES)
 
             # Look for the link to the desired country page

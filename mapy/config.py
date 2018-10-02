@@ -7,7 +7,7 @@ GEONAMES_COUNTRIES = 'https://www.geonames.org/countries/'
 
 
 def get_available_countries():
-    browser = RoboBrowser()
+    browser = RoboBrowser(parser='html.parser')
     browser.open(GEONAMES_COUNTRIES)
     return [country_name.string.lower()
             for country_name in browser.select('.restable ')[0].find_all('a')
