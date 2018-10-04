@@ -29,6 +29,7 @@ class Mapy:
         parser.add_argument('--country', '-c', action='store',
                             help='You may enter a country '
                                  'name to test yourself!',
+                            nargs='+',
                             type=config.check_valid_country)
         args = parser.parse_args()
         return args
@@ -78,12 +79,3 @@ class Mapy:
                 country_tag.string for country_tag in browser.find_all('a')
                 if str(country_tag.string).lower() in config.LIST_OF_AVAILABLE_COUNTRIES
                 and str(country_tag.string).lower() != self.country.name])
-
-            # neighbor_countries = [
-            #     country_tag.string for country_tag in browser.find_all('a')
-            #     if str(country_tag.string).lower() in config.LIST_OF_AVAILABLE_COUNTRIES
-            #     and str(country_tag.string).lower() != self.country]
-            # return neighbor_countries
-
-    def determine_relationship(self, other):
-        pass
