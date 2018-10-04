@@ -29,6 +29,7 @@ class Mapy:
         parser.add_argument('--country', '-c', action='store',
                             help='You may enter a country '
                                  'name to test yourself!',
+                            nargs='+',
                             type=config.check_valid_country)
         args = parser.parse_args()
         return args
@@ -50,7 +51,7 @@ class Mapy:
         Sets command line variables passed into instance variables
         """
         if args.country:
-            self.country = Country(name=args.country)
+            self.country = Country(name=' '.join(args.country))
         else:
             self.randomize_country()
         self.country.name = self.country.name.lower()
@@ -74,16 +75,9 @@ class Mapy:
                                        browser.select('.restable')[0].\
                                        find('a', href=re.compile(formatted_country_name))['href']
             browser.open(country_details_page)
+
+            # Adding the current's country neighbors to the property neighbors
             self.country.neighbors.extend([
                 country_tag.string for country_tag in browser.find_all('a')
                 if str(country_tag.string).lower() in config.LIST_OF_AVAILABLE_COUNTRIES
                 and str(country_tag.string).lower() != self.country.name])
-
-            # neighbor_countries = [
-            #     country_tag.string for country_tag in browser.find_all('a')
-            #     if str(country_tag.string).lower() in config.LIST_OF_AVAILABLE_COUNTRIES
-            #     and str(country_tag.string).lower() != self.country]
-            # return neighbor_countries
-
-    def determine_relationship(self, other):
-        pass
