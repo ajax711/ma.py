@@ -32,11 +32,14 @@ class Mapy:
                             nargs='+',
                             type=config.check_valid_country)
         args = parser.parse_args()
-        args.country = ' '.join(args.country)
-        if args.country.lower() not in config.LIST_OF_AVAILABLE_COUNTRIES:
-            config.invalid_country_exception(args.country,
-                                             msg="{} is an incomplete "
-                                                 "country name!")
+
+        # Checks whether a --country argument was given
+        if args.country is not None:
+            args.country = ' '.join(args.country)
+            if args.country.lower() not in config.LIST_OF_AVAILABLE_COUNTRIES:
+                config.invalid_country_exception(args.country,
+                                                 msg="{} is an incomplete "
+                                                     "country name!")
         return args
 
     def run(self, args):
