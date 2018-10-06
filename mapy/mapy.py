@@ -15,6 +15,7 @@ class Country:
         self.name = name
         self.capital = None
         self.neighbors = list()
+        self.currency = None
 
 
 class Mapy:
@@ -47,6 +48,7 @@ class Mapy:
         """
         self.set_vars(args=args)
         while True:
+            # Game starts
             self.init_country_details()
 
             # Game ends
@@ -103,4 +105,5 @@ class Mapy:
 
     def get_currency(self):
         browser = self.enter_country_details_page()
-        return ' '.join(str(browser.find(string=re.compile(r'\([A-Z]'))).split()[:-1])
+        self.country.currency = ' '.join(str(browser.find(
+            string=re.compile(r'\([A-Z]'))).split()[:-1])
