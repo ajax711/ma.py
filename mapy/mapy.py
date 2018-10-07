@@ -39,8 +39,8 @@ class Mapy:
 
         # Checks whether a --country argument was given
         if args.country is not None:
-            args.country = ' '.join(args.country)
-            if args.country.lower() not in config.LIST_OF_AVAILABLE_COUNTRIES:
+            args.country = ' '.join(args.country).lower()
+            if args.country not in config.LIST_OF_AVAILABLE_COUNTRIES:
                 config.invalid_country_exception(country_name=args.country,
                                                  msg="{} is an incomplete "
                                                      "country name!")
@@ -48,11 +48,9 @@ class Mapy:
 
     prettify = lambda self, arg: \
         ' '.join([word[:1].upper() + word[1:]
-        if word.lower() not in
-        ['and', 'of', 'the']
-        else word[:1].lower() + word[1:]
-        for word in
-        re.split('\W+', arg)])
+                  if word.lower() not in ['and', 'of', 'the']
+                  else word[:1].lower() + word[1:]
+                  for word in re.split('\W+', arg)])
 
     def run(self, args):
         """
@@ -86,22 +84,24 @@ class Mapy:
                   "\n(enter them one by one. If the country has no neighbors, "
                   "write `none`.)\n".format(self.country.name))
             neighbors_list_so_far = list()
+
             if len(self.country.neighbors) != 0:
                 for i in range(len(self.country.neighbors)):
-                    neighbor_answer = input("Enter a neighbor country's name: ")
-                    print(self.country.neighbors)  # todo delete
-                    if neighbor_answer.lower() in self.country.neighbors:
-                        if neighbor_answer.lower() not in neighbors_list_so_far:
-                            neighbors_list_so_far.extend(neighbor_answer.lower())
+                    neighbor_answer = input("Enter a neighbor country's name: ").lower()
+                    if neighbor_answer in self.country.neighbors:
+                        if neighbor_answer not in neighbors_list_so_far:
+                            neighbors_list_so_far.append(neighbor_answer)
                             print("Yes! It is indeed a neighbor!")
-                            if i != len(self.country.neighbors):
-                                print("Let's continue, we're not done yet.")
+                            if (i + 1) != len(self.country.neighbors):
+                                print("Let's continue, we're not done yet.\n")
                         else:
                             print("You've already listed this country, try again!")
-                            i -= 1
+                            break
                     else:
-                        print("Whoops, this country is not a neigbor! Sorry!")
+                        print("Whoops, this country is not a neighbor! Sorry!")
                         break
+
+            # If the number of neighbors is 0, then expecting 'none' from user
             else:
                 no_neighbors_answer = input("Enter a neighbor country's name: ")
                 if no_neighbors_answer.lower() != 'none':
@@ -111,7 +111,7 @@ class Mapy:
                     print("You're right!!")
 
             # Game ends
-            play_or_not = input('\nDo you want to play another game? (y\\n)\n')
+            play_or_not = input('\nDo you want to play another game? (y\\n): ')
             if play_or_not != 'y':
                 break
 
@@ -123,7 +123,12 @@ class Mapy:
         Sets command line variables passed into instance variables
         """
         if args.country:
-            self.country = Country(name=' '.join(args.country))
+
+            # args.country is either a list or a string; treat it accordingly
+            if isinstance(args.country, list):
+                self.country = Country(name=' '.join(args.country))
+            else:
+                self.country = Country(name=args.country)
         else:
 
             # Note that randomize_country also sets self.country to a value
