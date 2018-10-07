@@ -2,9 +2,10 @@ from pyfiglet import Figlet
 from mapy import Mapy
 import argparse
 
-DESCRIPTION = "Play the most awesome geo-diplo-political CLI trivia-game of all-time!\n" \
-              "You can either pass no arguments and receive a random country, or enter a\n" \
-              "country of your liking."
+DESCRIPTION = "Play the most awesome geo-diplo-political" \
+              " CLI trivia-game of all-time!\nYou can either " \
+              "pass no arguments and receive a random country, " \
+              "or enter a\ncountry of your liking."
 
 
 def main():
