@@ -6,6 +6,10 @@ GEONAMES_COUNTRIES = 'https://www.geonames.org/countries/'
 
 
 def get_available_countries():
+    """
+    :return: list of countries as presented in url
+             GEONAMES_COUNTRIES.
+    """
     browser = RoboBrowser(parser='html.parser')
     browser.open(GEONAMES_COUNTRIES)
     return [country_name.string.lower()
@@ -22,6 +26,11 @@ current_number_of_given_args = 0
 def invalid_country_exception(country_name,
                               msg="{} is neither a valid country name,"
                                   " nor a part of one."):
+    """
+    :param country_name: Country name of the current game's country.
+    :param msg: Customized message.
+    :return: argparse type error exception.
+    """
     raise argparse.ArgumentTypeError(msg.format(country_name))
 
 

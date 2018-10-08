@@ -23,6 +23,11 @@ class Country:
 
 
 class Mapy:
+    """
+    The Mapy class contains the game's main functions and methods, which all
+    run throughout the program's life.
+    """
+
     def __init__(self, parser):
         self.country = None
         self.args = self.add_arguments_to_parser(parser=parser)
@@ -87,7 +92,8 @@ class Mapy:
 
             if len(self.country.neighbors) != 0:
                 for i in range(len(self.country.neighbors)):
-                    neighbor_answer = input("Enter a neighbor country's name: ").lower()
+                    neighbor_answer = input(
+                        "Enter a neighbor country's name: ").lower()
                     if neighbor_answer in self.country.neighbors:
                         if neighbor_answer not in neighbors_list_so_far:
                             neighbors_list_so_far.append(neighbor_answer)
@@ -95,7 +101,8 @@ class Mapy:
                             if (i + 1) != len(self.country.neighbors):
                                 print("Let's continue, we're not done yet.\n")
                         else:
-                            print("You've already listed this country, try again!")
+                            print("You've already listed this country, "
+                                  "try again!")
                             break
                     else:
                         print("Whoops, this country is not a neighbor! Sorry!")
@@ -136,14 +143,25 @@ class Mapy:
         self.country.name = self.country.name.lower()
 
     def randomize_country(self):
+        """
+        Sets a random country out of the available list.
+        """
         self.country = Country(name=random.choice(
             config.LIST_OF_AVAILABLE_COUNTRIES))
 
     def init_country_details(self):
+        """
+        Get all the initial details about the country that we want
+        to quiz about.
+        """
         self.get_neighboring_countries()
         self.get_currency()
 
     def enter_country_details_page(self):
+        """
+        Enters the country's details page in geonames.org, using the
+        library RoboBrowser. Returns the browser at current page.
+        """
         # Initialize a browser object and open Geonames countries page
         browser = RoboBrowser(parser='html.parser')
         browser.open(config.GEONAMES_COUNTRIES)
@@ -158,6 +176,10 @@ class Mapy:
         return browser
 
     def get_neighboring_countries(self):
+        """
+        Get all countries neighbor to self.country, as they appear
+        in the corresponding data from geonames.org.
+        """
         browser = self.enter_country_details_page()
 
         # Adding the current's country neighbors to the property neighbors
@@ -168,6 +190,9 @@ class Mapy:
             and str(country_tag.string).lower() != self.country.name])
 
     def get_currency(self):
+        """
+        Get the country's currency name, without any unnecessary initials.
+        """
         browser = self.enter_country_details_page()
         self.country.currency = ' '.join(str(browser.find(
             string=re.compile(r'\([A-Z]'))).split()[:-1]).lower()
