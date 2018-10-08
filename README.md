@@ -1,10 +1,12 @@
 # ma.py
-*ma.py* is a CLI (command-line interface) game that utilizes your operating system's terminal (be it Command Line in Windows or Terminal in Apple's OS X, Linux) to quiz you on your geographical knowledge.
+:earth_africa: *ma.py* is a CLI (command-line interface) game that utilizes your operating system's terminal (be it Command Line in Windows or Terminal in Apple's OS X, Linux) to quiz you on your geographical knowledge. :earth_asia:
 
 ## Table of contents
  - [Introduction](#introduction)
  - [Installation](#installation)
  - [Usage](#usage)
+ - [Techy details](#techy-details)
+ - [License](#license)
  - [Feedback](#feedback)
 
 ## Introduction
@@ -15,6 +17,9 @@ I'm tired of trivia-like games on geography, that keep testing me on [capital ci
  - What is the country's official currency name? (Did you know how many countries [don't even have a currency of their own?!](https://qz.com/260980/meet-the-countries-that-dont-use-their-own-currency/))
   - Which countries are neighbors (share borders) with which countries?
   ... and more to come!
+  
+  ## Why even create such a game?!
+  If that was not clear enough by now, I'm pretty much a geography nerd; I like everything there is about countries and diplomatics! I enjoy reading and learning about relations between different countries, and games like these help me sharpen my trivia knowledge. I used to be so interested in diplomatics, that I even had the chance to take a university course in Introduction to [International Relations](https://en.wikipedia.org/wiki/International_relations). I'm fun in parties, [I swear](https://upload.wikimedia.org/wikipedia/commons/8/85/HHGTHG_1979_ICA_Stage_Production_Flyer.jpg)!
   
   ## Installation
   The only prerequisite is having [Python 3](https://www.python.org/downloads/) installed.
@@ -45,5 +50,8 @@ I'm tired of trivia-like games on geography, that keep testing me on [capital ci
    - [*random*](https://docs.python.org/3/library/random.html) from the standard library; used in order to randomize country selection to be automated.
    - [*pyfiglet*](https://github.com/pwaller/pyfiglet) was used to create a pretty ASCII title for the game. I'm a fan of ASCII art, but ain't much of an artist myself :art:
    
+   ## License
+   Full license is written [here](https://github.com/tsehori/ma.py/blob/master/LICENSE). All rights to data gathered from geonames.com belongs to them and them only; you can read all the relevant details in lines [1](https://github.com/tsehori/ma.py/blob/master/LICENSE#L1) to 7.
+   
    ## Feedback
-   Please, give me your harshest feedback! Feel free to [file an issue](https://github.com/tsehori/ma.py/issues/new), ask for a new feature, [open a pull request](https://github.com/tsehori/ma.py/pulls) for a cool new feature (or a bug fix!), and if you feel generous, [star](https://commons.wikimedia.org/wiki/File:Pluto_in_True_Color_-_High-Res.jpg#/media/File:Pluto_in_True_Color_-_High-Res.jpg) this repo :star:.
+   Please, give me your harshest feedback! Feel free to [file an issue](https://github.com/tsehori/ma.py/issues/new), ask for a new feature, [open a pull request](https://github.com/tsehori/ma.py/pulls) for a cool new feature (or a bug fix!), and if you feel generous, [star](https://commons.wikimedia.org/wiki/File:Pluto_in_True_Color_-_High-Res.jpg#/media/File:Pluto_in_True_Color_-_High-Res.jpg) this repo :star:
