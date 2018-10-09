@@ -17,7 +17,10 @@ def get_available_countries():
             if country_name.string is not None]
 
 
-LIST_OF_AVAILABLE_COUNTRIES = get_available_countries()
+SPECIAL_COUNTRIES_LIST = ['serbia and montenegro', 'cocos [keeling] islands']
+
+LIST_OF_AVAILABLE_COUNTRIES = [country for country in get_available_countries()
+                               if country not in SPECIAL_COUNTRIES_LIST]
 
 current_given_country_name = ''
 current_number_of_given_args = 0

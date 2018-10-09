@@ -167,10 +167,15 @@ class Mapy:
         browser.open(config.GEONAMES_COUNTRIES)
 
         # Look for the link to the desired country page
-        formatted_country_name = self.country.name.replace(' ', '')
+        formatted_country_name = self.country.name.replace('. ', '-')
+        formatted_country_name = formatted_country_name.replace('.', '-')
+        formatted_country_name = formatted_country_name.replace(' ', '-')
+        formatted_country_name = formatted_country_name.replace('ã', 'a')
+        formatted_country_name = formatted_country_name.replace('í', 'i')
+        formatted_country_name = formatted_country_name.replace('é', 'e')
         country_details_page = config.GEONAMES_HOMEPAGE + \
                                browser.select('.restable')[0]. \
-                               find('a', href=re.compile \
+                               find('a', href=re.compile
                                (formatted_country_name))['href']
         browser.open(country_details_page)
         return browser
