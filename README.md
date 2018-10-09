@@ -26,7 +26,7 @@ I'm tired of trivia-like games on geography, that keep testing me on [capital ci
   Running the game is simple as:
    - Clone the git repository to your desired folder: `git clone https://github.com/tsehori/ma.py`
    - From the folder you downloaded the repository to, go to the folder *ma.py*, using your operating system's terminal: `cd ma.py`
-   - Install the requirements described in [requirements.txt]() as [described here](https://stackoverflow.com/questions/7225900/how-to-install-packages-using-pip-according-to-the-requirements-txt-file-from-a).
+   - Install the requirements described in [requirements.txt](https://github.com/tsehori/ma.py/blob/master/requirements.txt) as [described here](https://stackoverflow.com/questions/7225900/how-to-install-packages-using-pip-according-to-the-requirements-txt-file-from-a).
    - Go to the folder mapy `cd mapy`
    The program should now be installed completely. To check whether everything is okay, check out [usage](#usage).
    
